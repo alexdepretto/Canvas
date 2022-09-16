@@ -1,0 +1,54 @@
+<canvas width="500" height="500"></canvas>
+
+<script>
+	// Seletor de tela
+	var tela=document.querySelector('canvas');
+	var desenho=tela.getContext('2d');
+	var W=tela.width; H=tela.height;
+
+	// Ferramentas de desenho
+{
+	function inicio() { desenho.beginPath() }
+	function ponto(x,y) { desenho.moveTo(x,y) }
+	function linha(x,y) { desenho.lineTo(x,y) }
+	function pintarRet(xr,yr, w,h) { desenho.fillRect(xr,yr, w,h) }
+	function contornoRet(xr,yr, w,h) { desenho.strokeRect(xr,yr, w,h) }
+	function circular (xc,yc,r, ti, tf) { desenho.arc(xc,yc,r, ti, tf) }
+	function arco (xc,yc,r, ti, tf,texto) { desenho.arc(xc,yc,r, ti, tf,texto) }
+	function pintar() { desenho.fill() }
+	function contorno() { desenho.stroke() }
+	function cor(x) { desenho.fillStyle=x }
+	function corLinha(x) { desenho.strokeStyle=x }
+}
+
+	corLinha('black'); contornoRet(0,0,W,H)
+
+	function Quadrado(xr,yr,w,h,fundo,linha)
+	{
+		var tela = document.querySelector('canvas');
+		var desenho = tela.getContext('2d');
+
+		cor(fundo);
+		pintarRet(xr,yr,w,h);
+		corLinha(linha);
+		contornoRet(xr,yr,w,h);
+	}
+	
+	var x, y;
+	var cor1 = 'green'; cor2 = 'yellow';
+
+	// Xadrez
+	for(y = 0; y <= H; y = y+100)
+	{
+		for(x = 0; x < W; x = x+100) {
+			Quadrado(x, y, 50, 50, cor1, 'black')
+			Quadrado(x+50, y+50, 50, 50, cor1, 'black')
+		}
+
+		for(x = 50; x <= W; x = x+100) {
+			Quadrado(x+50, y+50, 50, 50, cor2, 'black')
+			Quadrado(x, y, 50, 50, cor2, 'black')
+			Quadrado(0, y+50, 50, 50, cor2, 'black')
+		}
+	}
+</script>

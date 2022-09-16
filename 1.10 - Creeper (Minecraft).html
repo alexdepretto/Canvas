@@ -1,0 +1,20 @@
+<h1>Creeper</h1>
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+	//Creeper (Minecraft)
+
+	var tela = document.querySelector('canvas');
+	var desenho = tela.getContext('2d');
+
+	function cor(x) { desenho.fillStyle=x }
+	function pintarRet(xr, yr, w, h) { desenho.fillRect(xr, yr, w, h) }
+
+	cor('darkgreen'); pintarRet(0,0, 350,300); // cabeça
+	cor('black'); pintarRet(50,60, 90,90); // olho esquerdo
+	cor('black'); pintarRet(210,60, 90,90); // olho direito
+	cor('black'); pintarRet(140,150, 70,100); //nariz
+	cor('black'); pintarRet(100,190, 40,110); // presa esquerda
+	cor('black'); pintarRet(210,190, 40,110); // presa direita
+</script>

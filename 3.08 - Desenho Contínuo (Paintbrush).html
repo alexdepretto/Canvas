@@ -1,0 +1,48 @@
+<h1>Paintbrush</h1>
+<canvas width="800" height="600"></canvas>
+Cor do fundo<input type="color" name="fundo">
+Cor da linha<input type="color" name="linha">
+Tamanho<input type="size" name="raio">
+
+<body>
+	<script src="Ferramentas de desenho.js"></script>
+	<script>
+		// Seletor de tela
+		var tela = document.querySelector('canvas');
+		var desenho = tela.getContext('2d');
+		var paleta = document.querySelectorAll('input');
+		var fonte = paleta[2];
+	
+		corLinha('black'); contornoRet(0,0,800,600)
+	
+		var clique = false;
+		function apertar() { clique=true }
+		function soltar() { clique=false }
+	
+		function pincel(evento) { 
+			if(clique == true) {
+				// coordenadas do mouse dentro da tela
+				var x = evento.pageX-tela.offsetLeft;
+				var y = evento.pageY-tela.offsetTop;
+			
+				// circulo
+				inicio();
+				arco(x, y, fonte.value, 0, 2*3.14)
+				cor(paleta[0].value); pintar();
+				corLinha(paleta[1].value); contorno();
+				
+				// carta
+				/*cor(paleta[0].value);
+				pintarRet(x, y, fonte.value, 2*fonte.value);
+				corLinha(paleta[1].value);
+				contornoRet(x, y, fonte.value, 2*fonte.value)*/
+			}
+			console.log(x + ' , ' +y)
+		}
+		tela.onmousemove=pincel;
+		tela.onmousedown=apertar;
+		tela.onmouseup=soltar;
+		fonte.focus();
+	</script>
+</body>
+

@@ -1,0 +1,57 @@
+<canvas width="1000" height="450"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+	<script>
+		// Seletor de tela
+		var tela = document.querySelector('canvas');
+		var desenho = tela.getContext('2d');
+	
+		function Circulo(xc,yc,r,fundo,textoF,linha,textoL)
+		{
+			var tela = document.querySelector('canvas');
+			var desenho = tela.getContext('2d');
+	
+			inicio();
+			arco(xc,yc,r, 0, 2*3.14);
+	
+			if (textoF == true && textoL == false) {
+				cor(fundo);
+				pintar();
+			}
+			if (textoF == false && textoL == true) {
+				corLinha(linha);
+				contorno();
+			}
+			if (textoF == true && textoL == true) {
+				cor(fundo);
+				pintar();
+				corLinha(linha);
+				contorno();
+			}
+		}
+	
+		// PAC-MAN
+	
+		cor('blue')
+		pintarRet(0, 0, 1000, 500)
+	
+		var e = 10;
+	
+		inicio(); // corpo
+		cor('yellow')
+		ponto(200 + e, 200 + e); linha(141.42, 141.42);
+		arco(200 + e, 200 + e, 200, 3.14/4, (7*3.14)/4, false);
+		linha(200 + e, 200 + e);
+		pintar();
+	
+		inicio() // olhos
+		arco(200 + e, 100 + e, 25, 0, 2*3.14);
+		cor('black');
+		pintar();
+	
+		var xc = 300; // esferas de energia
+		for(var i = 0; i <= 900; i = i+150)
+			{ Circulo(xc+i,200+e,50, 'white', true, 'black', false) }
+	</script>
+</body>

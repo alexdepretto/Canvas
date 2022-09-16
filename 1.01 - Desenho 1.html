@@ -1,0 +1,24 @@
+<canvas width="640" height="450"></canvas>
+
+<script>
+	var tela=document.querySelector('canvas');
+	var desenho=tela.getContext('2d');
+
+	// Retângulo ou quadrado
+	desenho.fillStyle='lightgrey'; desenho.fillRect(0,0, 600,400);
+	desenho.fillStyle='green'; desenho.fillRect(0,0, 200,400);
+	desenho.fillStyle='red'; desenho.fillRect(400,0, 200,400);
+
+	// Triângulo ou polígono reto não-retangular
+	desenho.fillStyle='blue';
+	desenho.beginPath();
+	desenho.moveTo(300,200); desenho.lineTo(200,400); desenho.lineTo(400,400);
+	//desenho.lineTo(400,0); desenho.lineTo(200,0);
+	desenho.fill();
+
+	// Polígono circular
+	desenho.fillStyle='orange';
+	desenho.beginPath();
+	desenho.arc(300,200,50,0,2*(3.14));
+	desenho.fill();
+</script>

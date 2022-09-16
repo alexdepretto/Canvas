@@ -1,0 +1,50 @@
+<h1>Carimbo</h1>
+<canvas width="800" height="600"></canvas>
+
+<body>
+	<script src="Ferramentas de desenho.js"></script>
+	<script>
+		// Seletor de tela
+		var tela = document.querySelector('canvas');
+		var desenho = tela.getContext('2d');
+	
+		corLinha('black'); contornoRet(0,0,800,600)
+		//cor('lightgrey'); pintarRet(0,0,800,600);
+	
+		var cores =['blue', 'red', 'green'], IC=0; // cores
+		var r = 10, ra = 10, rd = 10, rmin = 10, rmax = 50;
+	
+		function carimbo(evento) { 
+			// coordenadas do mouse dentro da tela
+			var x = evento.pageX-tela.offsetLeft;
+			var y = evento.pageY-tela.offsetTop;
+							
+			if (evento.shiftKey && evento.altKey) 
+			{ alert('Uma tecla por vez, por favor!') }
+	
+			if(evento.shiftKey) { // aumentar diametro do circulo
+				if(r < rmax) { console.log('aumento de raio'); r = r+ra; }
+				else { console.log('raio máximo atingido'); r = rmax; }
+			}
+			if(evento.altKey) { // reduzir diametro do circulo
+				if(r > rmin) { console.log('redução de raio'); r = r-rd; }
+				else { console.log('raio mínimo atingido'); r = rmin; }
+			}
+			inicio();
+			arco(x, y, r, 0, 2*3.14)
+			cor(cores[IC]); pintar();
+			corLinha(cores[IC]); contorno();
+			console.log(x + ' , ' + y)
+		}
+
+		function mudarCor() {        
+			IC++;
+			if(IC >= cores.length) { IC = 0 } // volta para a primeira cor
+			console.log(cores[IC]);
+			return false; // anula a caixa de diálogo
+		}
+		tela.onclick=carimbo;
+		tela.oncontextmenu=mudarCor;
+	</script>
+</body>
+

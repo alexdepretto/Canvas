@@ -1,0 +1,56 @@
+<h1>Pulsação</h1>
+<canvas width="600" height="400"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+    <script>
+        // Seletor de tela
+        var tela = document.querySelector('canvas');
+        var desenho = tela.getContext('2d');
+        var W = tela.width, H = tela.height;
+    
+        corLinha('black'); contornoRet(0, 0, W, H); // Tela de pintura
+    
+        function Circulo(xc,yc,r,fundo,textoF,linha,textoL) {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            inicio();
+            arco(xc,yc,r, 0, 2*3.14);
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintar();
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contorno();
+            }
+            if (textoF == true && textoL == true) {
+                cor(fundo);
+                pintar();
+                corLinha(linha);
+                contorno();
+            }
+        }
+    
+        var r = 20, rmin = 20, rmax = 40; // raios do círculo
+        var pr = 2; // passo em r
+        var t = 20; // intervalo de tempo em [ms]
+    
+        function pulsar() {
+            limparRet(0, 0, W, H); contornoRet(0, 0, W, H);
+    
+            if(r >= rmax) { r = rmax; pr = -pr }
+            else
+                { if(r<=rmin) { r=rmin; pr=-pr } }
+    
+            Circulo(W/2, H/2, r, 'black', true, 'black', false);
+            r = r+pr;
+        }
+        setInterval(pulsar, t)
+    </script>
+</body>
+
+
+

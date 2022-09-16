@@ -1,0 +1,53 @@
+<canvas width="600" height="400"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+    <script>
+        // Seletor de tela
+        var tela = document.querySelector('canvas');
+        var desenho = tela.getContext('2d');
+        
+        corLinha('black');
+        contornoRet(0, 0, 600, 400);
+    
+        var r = 10;
+    
+        function Circulo(xc,yc,r,fundo,textoF,linha,textoL)
+        {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            inicio();
+            arco(xc,yc,r, 0, 2*3.14);
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintar();
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contorno();
+            }
+            if (textoF == true && textoL == true) {
+                cor(fundo);
+                pintar();
+                corLinha(linha);
+                contorno();
+            }
+        }
+        Circulo(300, 200, r+20, 'red', true, 'black', false) // maior
+        Circulo(300, 200, r+10, 'white', true, 'black', false)
+        Circulo(300, 200, r, 'red', true, 'black', false) // menor
+    
+        function atirar(evento) {
+            var x = evento.pageX-tela.offsetLeft;
+            var y = evento.pageY-tela.offsetTop;        
+            if (x > 300-r && x < 300+r && y > 200-r && y < 200+r)
+                { alert('Acertou no Alvo') }
+            else
+                { alert("ERRROOOUUU!!!") }
+        }
+        tela.onclick=atirar
+    </script>
+</body>
+

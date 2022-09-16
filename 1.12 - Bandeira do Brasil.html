@@ -1,0 +1,39 @@
+<h1>Bandeira do Brasil</h1>
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+	// Seletor de tela
+	var tela = document.querySelector('canvas');
+	var desenho = tela.getContext('2d');
+
+	// Ferramentas de desenho
+{
+	function inicio() { desenho.beginPath() }
+	function ponto(x,y) { desenho.moveTo(x,y) }
+	function linha(x,y) { desenho.lineTo(x,y) }
+	function pintarRet(xr,yr, w,h) { desenho.fillRect(xr,yr, w,h) }
+	function contornoRet(xr,yr, w,h) { desenho.strokeRect(xr,yr, w,h) }
+	function arco(xc,yc,r, ti, tf,texto) { desenho.arc(xc,yc,r, ti, tf,texto) }
+	function pintar() { desenho.fill() }
+	function contorno() { desenho.stroke() }
+	function cor(x) { desenho.fillStyle=x }
+}
+
+	document.write('Brasil')
+	// Retângulo verde
+	cor("green");
+	pintarRet(0,0,600,400);
+
+	// Losango amarelo
+	cor('yellow');
+	inicio();
+	ponto(50,200); linha(300,350); linha(550,200); linha(300,50); linha(50,200);
+	pintar();
+
+	// Círculo azul
+	cor('blue');
+	inicio();
+	arco(300,200,100,0,2*3.14);
+	pintar();
+</script>

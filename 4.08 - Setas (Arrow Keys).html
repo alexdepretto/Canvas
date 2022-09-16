@@ -1,0 +1,74 @@
+<h1>Usando as Setas</h1>
+<canvas width="600" height="400"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+    <script>
+        // Seletor de tela
+        var tela = document.querySelector('canvas');
+        var desenho = tela.getContext('2d');
+        var W = tela.width, H = tela.height;
+    
+        corLinha('black'); contornoRet(0, 0, W, H); // Tela de pintura
+    
+        function Circulo(xc,yc,r,fundo,textoF,linha,textoL)
+        {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            inicio();
+            arco(xc,yc,r, 0, 2*3.14);
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintar();
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contorno();
+            }
+            if (textoF == true && textoL == true) {
+                cor(fundo);
+                pintar();
+                corLinha(linha);
+                contorno();
+            }
+        }
+    
+        var r = 20; // raio do círculo
+        var x = W/2, y = H/2; //início 
+        var p = 10; // passo
+        var t = 10; // intervalo de tempo em [ms]
+        var left = 37, up = 38, right = 39, down = 40 // Códigos das setas (KeyCodes)
+    
+        function mover() {
+            limparRet(0, 0, W, H); contornoRet(0, 0, W, H);
+            Circulo(x, y, r,'black',true,'black',false);
+        }
+    
+        function teclado(evento)  {
+            if(evento.keyCode == up) {
+                if ((y-r) <= 0) { y = 0+r }
+                else y = y-p
+            }
+            else
+                if (evento.keyCode == down) {
+                    if ((y+r) >= H) { y = H-r }
+                    else y = y+p
+                }
+                else
+                    if (evento.keyCode == left) {
+                        if((x-r )<= 0) { x = 0+r }
+                        else x = x-p
+                    }
+                    else
+                        if (evento.keyCode == right) {
+                            if ((x+r )>= W) { x = W-r }
+                            else x = x+p
+                        }
+        }
+        setInterval(mover, t)
+        document.onkeydown=teclado;
+    </script>
+</body>
+

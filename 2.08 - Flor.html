@@ -1,0 +1,72 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+	// Seletor de tela
+	var tela=document.querySelector('canvas');
+	var desenho=tela.getContext('2d');
+
+	// Ferramentas de desenho
+{
+	function inicio() { desenho.beginPath() }
+	function ponto(x,y) { desenho.moveTo(x,y) }
+	function linha(x,y) { desenho.lineTo(x,y) }
+	function arco(xc,yc,r, ti, tf,texto) { desenho.arc(xc,yc,r, ti, tf,texto) }
+	function pintarRet(xr,yr, w,h) { desenho.fillRect(xr,yr, w,h) }
+	function contornoRet(xr,yr, w,h) { desenho.strokeRect(xr,yr, w,h) }
+	function cor(x) { desenho.fillStyle=x }
+	function pintar() { desenho.fill() }
+	function corLinha(x) { desenho.strokeStyle=x }
+	function contorno() { desenho.stroke() }
+}
+	function Retangulo(xr,yr,w,h,fundo,textoF,linha,textoL) {
+		var tela = document.querySelector('canvas');
+		var desenho = tela.getContext('2d');
+
+		if (textoF == true && textoL == false) {
+			cor(fundo);
+			pintarRet(xr,yr,w,h);
+		}
+		if (textoF == false && textoL == true) {
+			corLinha(linha);
+			contornoRet(xr,yr,w,h)
+		}
+		if (textoF == true && textoL == true) {
+			cor(fundo);
+			pintarRet(xr,yr,w,h);
+			corLinha(linha);
+			contornoRet(xr,yr,w,h);
+		}		
+	}
+
+	function Circulo(xc,yc,r,fundo,textoF,linha,textoL) {
+		var tela = document.querySelector('canvas');
+		var desenho = tela.getContext('2d');
+
+		inicio();
+		arco(xc,yc,r, 0, 2*3.14);
+
+		if (textoF == true && textoL == false) {
+			cor(fundo);
+			pintar();
+		}
+		if (textoF==false&&textoL==true) {
+			corLinha(linha);
+			contorno();
+		}
+		if (textoF == true && textoL == true) {
+			cor(fundo);
+			pintar();
+			corLinha(linha);
+			contorno();
+		}
+	}
+
+	var a=true; b=false;
+
+	Circulo(300, 200, 50, 'purple', a, 'purple', b)
+	Circulo(300, 100, 50, 'yellow', a, 'yellow', b)
+	Circulo(300, 300, 50, 'red', a, 'red', b)
+	Circulo(200, 200, 50, 'blue', a, 'blue', b)
+	Circulo(400, 200, 50, 'green', a, 'green', b)
+	Circulo(300, 200, 150, 'green', b, 'black', b)
+</script>

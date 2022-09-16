@@ -1,0 +1,80 @@
+<canvas width="600" height="400"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+    <script>
+
+        // Seletor de tela
+        var tela = document.querySelector('canvas');
+        var desenho = tela.getContext('2d');
+        var W = tela.width, H = tela.height;
+    
+        corLinha('black');
+        contornoRet(0, 0, W, H);
+    
+        var r = 10; // raio padrão do alvo
+        var xP, yP; // coordenadas do alvo
+        var t = 1000; // intervalo d tempo
+    
+        function Circulo(xc,yc,r,fundo,textoF,linha,textoL) {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            inicio();
+            arco(xc,yc,r, 0, 2*3.14);
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintar();
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contorno();
+            }
+            if (textoF==true&&textoL==true) {
+                cor(fundo);
+                pintar();
+                corLinha(linha);
+                contorno();
+            }
+        }
+        
+        function alvo(x, y) {
+            Circulo(x,y,3*r,'red',true,'black',false) // maior
+            Circulo(x,y,2*r,'white',true,'black',false)
+            Circulo(x,y,r,'red',true,'black',false) // menor
+        }
+    
+        function posicao(maximo)
+            { return Math.floor(Math.random()*maximo) }
+    
+        function animacao() {
+            limparRet(0, 0, W, H); contornoRet(0, 0, W, H);
+            xP = posicao(W); yP = posicao(H);
+    
+            // Limites no eixo x
+            if ((xP+3*r) >= W) { xP = W-3*r }
+            else
+                { if((xP-3*r)<=0) { xP=0+3*r } }
+    
+            // Limites no eixo y
+            if ((yP+3*r) >= H) { yP = H-3*r }
+            else
+                { if((yP-3*r) <= 0) { yP = 0+3*r } }
+
+            alvo(xP, yP);
+        }
+        
+        function atirar(evento) {
+            var x = evento.pageX-tela.offsetLeft;
+            var y = evento.pageY-tela.offsetTop;        
+            if (x > xP-r && x < xP+r && y > yP-r && y < yP+r)
+                { alert('Acertou no Alvo') }
+            else
+                { alert("ERRROOOUUU!!!") }
+        }
+        setInterval(animacao, t)
+        tela.onclick=atirar
+    </script>
+</body>
+

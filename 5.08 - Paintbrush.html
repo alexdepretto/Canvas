@@ -1,0 +1,108 @@
+<meta charset="UTF-8">
+<h1>Paintbrush</h1>
+
+<canvas width="600" height="450"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+    <script>
+
+        // Seletor de tela
+        var tela = document.querySelector('canvas');
+        var desenho = tela.getContext('2d');
+        var W = tela.width, H = tela.height;
+    
+        contornoRet(0, 0, W, H-50);
+    
+        function Retangulo(xr,yr,w,h,fundo,textoF,linha,textoL) {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintarRet(xr,yr,w,h);
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contornoRet(xr,yr,w,h)
+            }
+            if (textoF == true && textoL == true) {
+                cor(fundo);
+                pintarRet(xr,yr,w,h);
+                corLinha(linha);
+                contornoRet(xr,yr,w,h);
+            }       
+        }
+        
+        function Circulo(xc,yc,r,fundo,textoF,linha,textoL) {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            inicio();
+            arco(xc,yc,r, 0, 2*3.14);
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintar();
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contorno();
+            }
+            if (textoF == true && textoL == true) {
+                cor(fundo);
+                pintar();
+                corLinha(linha);
+                contorno();
+            }
+        }
+
+        function Paleta() {
+            for(i = 0; i <= 11; i++)
+            { Retangulo(i*Quad, yQ, Quad, Quad, cores[i], true,'black', true) } 
+        }
+    
+        function Mouse(evento) {
+            var x = evento.pageX-tela.offsetLeft;
+            var y = evento.pageY-tela.offsetTop;
+    
+            if(clique == true)
+            {
+                if(x >= 0 && x <= W && y >= (H-Quad-r) && y <= H) { return false }
+                else { Circulo(x, y, r, corAtual, true, corAtual, true) }
+            }
+        }
+    
+        function trocar(evento) {
+            var x = evento.pageX-tela.offsetLeft;
+            var y = evento.pageY-tela.offsetTop;
+    
+            if(y > (H-Quad) && y < H)
+            {
+                for(i = 0; i <= 11; i++)
+                {
+                    if(x > (i*Quad) && x < ((i+1)*Quad)) { corAtual=cores[i] }
+                }
+            }
+        }
+    
+        function apertar() { clique = true }
+        function soltar() { clique = false }
+    
+        var cores = ['green', 'yellow', 'blue', 'red', 'purple', 'deeppink', 'black', 'white', 'grey', 'orange', 'aqua', 'maroon' ]; // vetor cores    
+    
+        var clique = false;
+        var corAtual = 'black';
+        var yQ = 400; // inicio da paleta
+        var Quad = 50; // tamanho do quadrado
+        var r = 10; // raio
+        var i; // indice
+    
+        Paleta(); // mostra os quadrados de seleção de cores
+    
+        tela.onmousemove = Mouse
+        tela.onmousedown = apertar
+        tela.onmouseup = soltar
+        tela.onclick = trocar
+    </script>
+</body>

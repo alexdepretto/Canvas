@@ -1,0 +1,62 @@
+<meta charset="UTF-8">
+<h1>Animação</h1>
+<canvas width="600" height="400"></canvas>
+
+<body>
+    <script src="Ferramentas de desenho.js"></script>
+    <script>
+        // Seletor de tela
+        var tela = document.querySelector('canvas');
+        var desenho = tela.getContext('2d');
+        var W = tela.width, H = tela.height;
+    
+        corLinha('black'); contornoRet(0, 0, W, H); // Tela de pintura
+    
+        function Circulo(xc,yc,r,fundo,textoF,linha,textoL) {
+            var tela = document.querySelector('canvas');
+            var desenho = tela.getContext('2d');
+    
+            inicio();
+            arco(xc,yc,r, 0, 2*3.14);
+    
+            if (textoF == true && textoL == false) {
+                cor(fundo);
+                pintar();
+            }
+            if (textoF == false && textoL == true) {
+                corLinha(linha);
+                contorno();
+            }
+            if (textoF == true && textoL == true) {
+                cor(fundo);
+                pintar();
+                corLinha(linha);
+                contorno();
+            }
+        }
+    
+        var x = 20, y = 20; // deslocamento em x e y
+        var r = 20; // raio do círculo
+        var px = 7.5, py = 7.5; // passo em x e y
+        var t = 15; // intervalo de tempo em [ms]
+    
+        function animacao() {
+            limparRet(0, 0, W, H); contornoRet(0, 0, W, H);
+    
+            // Ricochete no eixo x
+            if ((x+r) >= W) { x = W-r; px = -px }
+            else
+                { if((x-r)<=0) { x=0+r; px=-px } }
+    
+            // Ricochete no eixo y
+            if ((y+r) >= H) { y = H-r; py = -py }
+            else
+                { if((y-r) <= 0) { y = 0+r; py = -py } }
+    
+            Circulo(x, y , r, 'black', true, 'black', false);
+            x = x+px; y = y+py;
+        }
+        setInterval(animacao, t)
+    </script>
+</body>
+
